@@ -1,4 +1,4 @@
-class CreateHatchKPIDefinitions < ActiveRecord::Migration[5.0]
+class CreateKpiDefinitions < ActiveRecord::Migration[5.0]
   def change
     kpi_definitions_table_name = :stardust_rails_kpis_kpi_definitions
 

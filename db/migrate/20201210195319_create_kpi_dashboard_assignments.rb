@@ -1,4 +1,4 @@
-class CreateHatchKPIDashboardAssignments < ActiveRecord::Migration[5.0]
+class CreateKpiDashboardAssignments < ActiveRecord::Migration[5.0]
   def change
 
     kpi_dashboard_assignments_table = :stardust_rails_kpis_kpi_dashboard_assignments
@@ -10,7 +10,7 @@ class CreateHatchKPIDashboardAssignments < ActiveRecord::Migration[5.0]
     else
       create_table kpi_dashboard_assignments_table do |t|
         t.belongs_to :user
-        t.belongs_to :kpi_definition, class_name: "StardustRails::Kpis::KPI::KpiDefinition"
+        t.belongs_to :kpi_definition, class_name: "StardustRails::Kpis::KpiDefinition", index: {name: :sr_kpi_definition_assignment}
         t.timestamps
       end
     end
