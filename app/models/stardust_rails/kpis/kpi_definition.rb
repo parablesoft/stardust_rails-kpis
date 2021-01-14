@@ -1,5 +1,7 @@
 class StardustRails::Kpis::KpiDefinition < ActiveRecord::Base
 
+  after_save :set_recalculation_schedule!
+
   validates_uniqueness_of :name
 
   def self.table_name_prefix
@@ -32,6 +34,10 @@ class StardustRails::Kpis::KpiDefinition < ActiveRecord::Base
     executed_dsl_instance.report_id
   end
 
+  def recalculate_cron
+    executed_dsl_instance.recalculate_cron
+  end
+
   def report_filter_variable
     executed_dsl_instance.report_filter_variable
   end
@@ -48,7 +54,13 @@ class StardustRails::Kpis::KpiDefinition < ActiveRecord::Base
     StardustRails::Kpis::Kpi.where(name: self.name).order(created_at: :desc).first
   end
 
+  def set_recalculation_schedule!
+    StardustRails::Kpis::Scheduler.new(self).call
+  end
+
+
   private
+
 
   def executed_dsl_instance
     @executed_dsl_instance = StardustRails::Kpis::Design::Kpi.new(dsl)

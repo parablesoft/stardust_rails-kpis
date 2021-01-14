@@ -8,6 +8,18 @@ class StardustRails::Kpis::Dsl::Kpi
     end
   end
 
+  def recalculate_cron(value=nil,&block)
+
+    if block_given?
+      @recalculate_cron = block
+    elsif value.present?
+      @recalculate_cron = value
+    else
+      @recalculate_cron
+    end
+
+  end
+
   def report_filter_variable(value=nil)
     if value.present?
       @report_filter_variable = value

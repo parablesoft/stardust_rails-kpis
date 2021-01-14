@@ -11,6 +11,14 @@ class StardustRails::Kpis::Design::Kpi
     dsl.report_id
   end
 
+  def recalculate_cron
+    if dsl.recalculate_cron.is_a?(Proc)
+      instance_exec(&dsl.recalculate_cron)
+    elsif dsl.recalculate_cron.present?
+      dsl.recalculate_cron
+    end
+  end
+
   def report_filter_variable
     dsl.report_filter_variable
   end
