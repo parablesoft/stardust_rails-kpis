@@ -8,9 +8,15 @@ Stardust::GraphQL.define_types do
     field :report_id, :id, null: true
     field :report_filter_variable, :string, null: true
     field :additional_report_variables, :raw, null: true
-    field :most_recent_result, :kpi_details, null: true
+    field :most_recent_result, :stardust_rails_kpis_kpi_details, null: true
     field :group_name, :string, null: true
-    field :dashboard_assignments,[:kpi_dashboard_assignment], null: true
+    field :dashboard_assignments,[:stardust_rails_kpis_kpi_dashboard_assignment], null: true
+  end
+
+  object :stardust_rails_kpis_kpi_details do
+    field :name, :string, null: false
+    field :details, :raw, null: false
+    field :created_at, :datetime, null: false
   end
 
 

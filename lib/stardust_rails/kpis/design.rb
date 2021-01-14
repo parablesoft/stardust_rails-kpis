@@ -5,3 +5,5 @@ module StardustRails
       end
   end
 end
+
+require_relative  "design/kpi"

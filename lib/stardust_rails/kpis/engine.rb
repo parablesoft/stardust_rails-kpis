@@ -3,6 +3,8 @@ module StardustRails
     class Engine < ::Rails::Engine
       isolate_namespace StardustRails::Kpis
 
+      config.autoload_paths += %W( #{config.root}/app/models )
+
       initializer :append_migrations do |app|
         root_path = app.root.to_s
         

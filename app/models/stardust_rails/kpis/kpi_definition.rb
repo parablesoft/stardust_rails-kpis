@@ -7,14 +7,14 @@ class StardustRails::Kpis::KpiDefinition < ActiveRecord::Base
   end
 
   has_many :dashboard_assignments, 
-    class_name: "StardustRails::Kpis::DashboardAssignment"
+    class_name: "StardustRails::Kpis::KpiDashboardAssignment"
 
   def dsl
     describe(configuration)
   end
 
   def calculate!
-    ::KPI.create(name: self.name, details: calculation_result)
+    StardustRails::Kpis::Kpi.create(name: self.name, details: calculation_result)
   end
 
   def self.calculate!(names:)
@@ -25,7 +25,7 @@ class StardustRails::Kpis::KpiDefinition < ActiveRecord::Base
 
   def process_rename!
     previous_name = previous_changes["name"].first
-    ::KPI.where(name: previous_name).update_all(name: self.name)
+    StardustRails::Kpis::Kpi.where(name: previous_name).update_all(name: self.name)
   end
 
   def report_id
@@ -45,7 +45,7 @@ class StardustRails::Kpis::KpiDefinition < ActiveRecord::Base
   end
 
   def most_recent_result
-    ::KPI.where(name: self.name).order(created_at: :desc).first
+    StardustRails::Kpis::Kpi.where(name: self.name).order(created_at: :desc).first
   end
 
   private

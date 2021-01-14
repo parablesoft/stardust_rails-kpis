@@ -29,12 +29,12 @@ Stardust::GraphQL.define_mutation :stardust_rails_kpis_kpi_dashboard_assignments
       kpi_definition_id: kpi_definition.id
     }
 
-    kpi_dashboard_assignment = StardustRails::Kpis::DashboardAssignment.find_by(args)
+    kpi_dashboard_assignment = StardustRails::Kpis::KpiDashboardAssignment.find_by(args)
 
     if kpi_dashboard_assignment
       kpi_dashboard_assignment.destroy
     else
-      StardustRails::Kpis::DashboardAssignment.create(args)
+      StardustRails::Kpis::KpiDashboardAssignment.create(args)
     end
 
     kpi_definition.reload
@@ -46,9 +46,14 @@ Stardust::GraphQL.define_mutation :stardust_rails_kpis_kpi_dashboard_assignments
 
   private
 
+
   def self.authorized?(_, ctx)
     current_user = ctx[:current_user]
-    current_user.present? && current_user.system_manager?
+    current_user.present? && permitted_roles.include?(current_user.role)
+  end
+
+  def self.permitted_roles
+    StardustRails::Kpis.configuration.manager_roles
   end
 
 end

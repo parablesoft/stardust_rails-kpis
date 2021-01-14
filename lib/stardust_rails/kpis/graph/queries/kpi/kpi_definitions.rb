@@ -22,10 +22,11 @@ Stardust::GraphQL.define_query :stardust_rails_kpis_kpi_definitions do
 
   def self.authorized?(_, ctx)
     current_user = ctx[:current_user]
-    current_user && permitted_roles.include?(current_user.role)
+    current_user.present? && permitted_roles.include?(current_user.role)
   end
 
   def self.permitted_roles
-    ["admin"].freeze
+    StardustRails::Kpis.configuration.manager_roles
   end
+
 end
