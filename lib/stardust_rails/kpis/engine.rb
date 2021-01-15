@@ -17,8 +17,13 @@ module StardustRails
 
       initializer :scheduler do |app|
 
+        begin
         StardustRails::Kpis::KpiDefinition.all.each do |kpi_definition|
           kpi_definition.set_recalculation_schedule!
+        end
+
+        rescue
+          Rails.logger.error "Could not run sidekiq scheduling"
         end
       end
 

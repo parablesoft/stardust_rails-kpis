@@ -6,6 +6,7 @@ class CreateKpiDashboardAssignments < ActiveRecord::Migration[5.0]
     existing_table = :hatch_kpi_dashboard_assignments
 
     if table_exists?(existing_table)
+      rename_index existing_table, :index_hatch_kpi_dashboard_assignments_on_kpi_definition_id, :sr_kpi_definition_assignment
       rename_table existing_table, kpi_dashboard_assignments_table
     else
       create_table kpi_dashboard_assignments_table do |t|
