@@ -21,8 +21,9 @@ Stardust::GraphQL.define_query :stardust_rails_kpis_kpi_definition do
     current_user.present? && permitted_roles.include?(current_user.role)
   end
 
+  #need to tighten this down
   def self.permitted_roles
-    StardustRails::Kpis.configuration.manager_roles
+    StardustRails::Kpis.configuration.viewer_roles
   end
 
 
