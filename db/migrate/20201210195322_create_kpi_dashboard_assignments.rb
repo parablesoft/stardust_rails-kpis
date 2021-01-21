@@ -13,7 +13,7 @@ class CreateKpiDashboardAssignments < ActiveRecord::Migration[5.0]
         t.belongs_to :user
         t.belongs_to :kpi_definition, class_name: "StardustRails::Kpis::KpiDefinition", index: {name: :sr_kpi_definition_assignment}
         t.timestamps
-      end
+      end unless table_exists?(kpi_dashboard_assignments_table)
     end
   end
 end

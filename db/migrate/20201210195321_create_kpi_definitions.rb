@@ -12,7 +12,7 @@ class CreateKpiDefinitions < ActiveRecord::Migration[5.0]
         t.string :title
         t.string :group_name
         t.timestamps
-      end
+      end unless table_exists?(kpi_definitions_table_name)
 
     end
   end

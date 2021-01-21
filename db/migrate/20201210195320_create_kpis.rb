@@ -11,7 +11,7 @@ class CreateKpis < ActiveRecord::Migration[5.0]
         t.string :name, null: false
         t.jsonb :details, null: false
         t.timestamps
-      end
+      end unless table_exists?(table_name)
     end
 
   end
